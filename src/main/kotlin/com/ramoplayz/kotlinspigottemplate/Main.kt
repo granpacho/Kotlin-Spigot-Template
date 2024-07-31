@@ -1,4 +1,4 @@
-package com.ramoplayz.kotlinplugintemplate
+package com.ramoplayz.kotlinspigottemplate
 
 import org.bukkit.plugin.java.JavaPlugin
 
@@ -9,7 +9,7 @@ class Main : JavaPlugin() {
     }
 
     override fun onDisable() {
-        
+
     }
 
 }
