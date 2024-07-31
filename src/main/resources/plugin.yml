@@ -1,0 +1,4 @@
+name: 'Kotlin-Spigot-Template'
+version: '${version}'
+main: com.ramoplayz.kotlinspigottemplate.Main
+api-version: '1.20'
