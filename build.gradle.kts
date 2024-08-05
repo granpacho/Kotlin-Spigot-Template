@@ -1,7 +1,5 @@
 plugins {
     kotlin("jvm") version "1.9.24"
-    application
-    java
     id("com.github.johnrengelman.shadow") version "7.1.2"
 }
 
@@ -16,9 +14,14 @@ repositories {
 }
 
 dependencies {
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.9.25")
     compileOnly("org.spigotmc:spigot-api:1.20.4-R0.1-SNAPSHOT")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.9.25")
     implementation("dev.dejvokep:boosted-yaml:1.3")
+}
+
+val targetJavaVersion = 21
+kotlin {
+    jvmToolchain(targetJavaVersion)
 }
 
 tasks {
@@ -27,14 +30,15 @@ tasks {
     }
 }
 
-tasks.test {
-    useJUnitPlatform()
+tasks.build {
+    dependsOn("shadowJar")
 }
 
-kotlin {
-    jvmToolchain(8)
-}
-
-application {
-    mainClass.set("MainKt")
+tasks.processResources {
+    val props = mapOf("version" to version)
+    inputs.properties(props)
+    filteringCharset = "UTF-8"
+    filesMatching("plugin.yml") {
+        expand(props)
+    }
 }
